@@ -9,28 +9,31 @@ You're reading it! and here is a link to my [project code](https://github.com/ha
 I used the python to calculate summary statistics of the traffic signs data set:
 
 * The size of training set is 34799
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* The size of the validation set is 4410
+* The size of test set is 12630
+* The shape of a traffic sign image is (32, 32, 3)
+* The number of unique classes/labels in the data set is 43
 
 ####2. Images and Distribution
 Here is an exploratory visualization of the data set. It is a bar chart showing count the number of images for each class
 
-![alt text][image1]
+![number_of_images_for_each_class][number_of_images_for_each_class.png]
 
 ###Design and Test a Model Architecture
 
 ####1. Pre-Pocessing Steps
 As a first step, I decided to convert the images to grayscale which is the same as lane line detectin project. 
 
-Here is an example of a traffic sign image before and after grayscaling.
+Here is an example of a traffic sign image after grayscaling:
+
+![only_grayscaled][only_grayscaled.png]
 
 As a second step, I equalized and normalized the image to help the model treating images uniformly
 
-The resulting images look as follows:
+Here is an example of a traffic sign image after normalization:
 
-![alt text][image2]
+![only_normalized][only_normalized.png]
+
 
 ####2. Model Architecture
 My final model consisted of the following layers:
@@ -60,25 +63,30 @@ Fully connected : 1024 -->  120
 Fully connected : 120 --> 119
 
 Fully connected : 119 --> 118
+
 ......
+
 
 Fully connected : 85 --> 84
 
 Fully connected : 84 --> 43
 
-Dropout for convoution : 0.6
-
-Dropout for fully connection : 0.5
-
 ####3. Model Training
-To train the model, I used learning rate of 0.001, softmax cross entropy as loss function, AdamOptimizer as optimizer, batch size of 512, epochs of 50, 0.6 for dropout in convoution, 0.5 for dropout in fully connection.
+To train the model, I used :
+
+* learning rate of 0.001
+* softmax cross entropy as loss function
+* AdamOptimizer as optimizer
+* batch size of 512, epochs of 50
+* 0.6 for dropout in convoution
+* 0.5 for dropout in fully connection.
 
 ####4. Model Tuning
 My final model results were:
 
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 0.9836
+* validation set accuracy of 0.9444
+* test set accuracy of 0.9292
 
 If a well known architecture was chosen:
 
@@ -91,31 +99,89 @@ If a well known architecture was chosen:
 
 ####1. Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![small_120_kmh_limit][small_120_kmh_limit.png] 
 
-The first image might be difficult to classify because ...
+![small_no_vehicles][small_no_vehicles.png] 
+
+![small_priority_road][small_priority_road.png]
+
+![small_road_works][small_road_works.png] 
+
+![small_vehicles_over_3.5_tonnes_prohibited][small_vehicles_over_3.5_tonnes_prohibited.png]
+
+The first image might be difficult to classify because 120 is similar to 20.
 
 ####2. Here are the results of the prediction:
-Speed limit (120km/h) : 
-Priority road : 
-No vehicles : 
-Road work : 
-Vehicles over 3.5 metric tons prohibited : 
+Speed limit (120km/h) : Speed limit (20km/h)
+
+Priority road : Speed limit (120km/h)
+
+No vehicles : Priority road
+
+Road work : Road work
+
+Vehicles over 3.5 metric tons prohibited : Vehicles over 3.5 metric tons prohibited
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 2 of the 5 traffic signs, which gives an accuracy of 40%. 
+
+This is lower to the accuracy on the test set of 0.92. The model was overfit for train data.
 
 ####3. The top five soft max probabilities were
 For the first image : 
-.60 : 
-.20 : 
-.50 :
-.40 : 
-.01 : 
+.60 : Speed limit (120km/h)
 
+.50 : Speed limit (60km/h)
+
+.40 : Speed limit (20km/h)
+
+.20 : End of all speed and passing limits
+
+.01 : Speed limit (50km/h)
 
 
 For the second image :
+.60 : No vehicles
+
+.50 : Stop
+
+.40 : Speed limit (70km/h)
+
+.20 : Yield
+
+.01 : Road narrows on the right
+
+For the third image :
+.60 : Priority road
+
+.50 : No passing
+
+.40 : Speed limit (100km/h)
+
+.20 : No entry
+
+.01 : No vehicles
+
+For the fourth image :
+.60 : Road work
+
+.50 : Stop
+
+.40 : Speed limit (80km/h)
+
+.20 : Priority road
+
+.01 : Bicycles crossing
+
+For the fiveth image :
+.60 : Roundabout mandatory
+
+.50 : Vehicles over 3.5 metric tons prohibited
+
+.40 : Speed limit (100km/h)
+
+.20 : Priority road
+
+.01 : End of no passing by vehicles over 3.5 metric tons
 
 
